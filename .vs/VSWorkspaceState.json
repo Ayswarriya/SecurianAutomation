@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\test",
+    "\\test\\pageobjects",
+    "\\test\\specs"
+  ],
+  "SelectedNode": "\\test\\specs\\form.spec.ts",
+  "PreviewInSolutionExplorer": false
+}

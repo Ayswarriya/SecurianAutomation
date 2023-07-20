@@ -1,0 +1,19 @@
+{
+  "age": "40",
+  "retirementAge": "68",
+  "currentIncome": 100000,
+  "spouseIncome" : 75000,
+  "currentTotalSavings": 500000,
+  "currentAnnualSavings": 10,
+  "savingsIncreaseRate": 2,
+  "socialSecurityBenefit": "Yes",
+  "maritalStatus": "Married",
+  "ssAmount" : 4000,
+  "otherIncome" : 500,
+  "duration" : 20,
+  "inflationOption" : "No",
+  "expectedRate" : 10,
+  "retirementIncome" : 2,
+  "preRoi" : 5,
+  "postRoi" : 9
+}
