@@ -36,6 +36,10 @@ class FormPage extends Page{
         return $("//button[@onclick='calculateResults();']")
     }
 
+    public get clearFormButton ():ChainablePromiseElement<WebdriverIO.Element>{
+        return $("//button[@onClick='clearRetirementForm();']")
+    }
+
     public get resultMessage():ChainablePromiseElement<WebdriverIO.Element> {
         return $("//p[@id='result-message']")
     }
@@ -50,6 +54,10 @@ class FormPage extends Page{
 
     public selectMaritalStatusRadioButton(option: string): ChainablePromiseElement<WebdriverIO.Element> {
         return $("//ul[contains(@id, 'status')]//label[text()='" + option + "']");
+    }
+
+    public get maritalStatusLabel(): ChainablePromiseElement<WebdriverIO.Element> {
+        return $("//legend[@id='marital-status-label']");
     }
 
     public get adjustDefaultValuesLink():ChainablePromiseElement<WebdriverIO.Element>{
@@ -92,6 +100,14 @@ class FormPage extends Page{
         return $("//button[@onclick='savePersonalizedValues();']");
     }
 
+    public get fieldInvalidErrorMessage():ChainablePromiseElement<WebdriverIO.Element>{
+        return $("//span[@class='invalid-error']");
+    }
+
+    public get mainErrorMessage():ChainablePromiseElement<WebdriverIO.Element>{
+        return $("//div[@id='calculator-input-alert']//p");
+    }
+
     /**
      * define or overwrite page methods
      */
@@ -122,7 +138,7 @@ class FormPage extends Page{
         }
     }
 
-    public async submitFormWithAllFieldsFilled(age:string, retirementAge:string, currentIncome:number, spouseIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string, ssAmount:number):Promise<void>{
+    public async populateFormWithAllFieldsFilled(age:string, retirementAge:string, currentIncome:number, spouseIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string, ssAmount:number):Promise<void>{
         await this.retirementSavingCanculatorForm(age, retirementAge, currentIncome, currentTotalSavings, currentAnnualSavings, savingsIncreaseRate, option, maritalStatus)
         await this.spouseIncomeField.scrollIntoView()
         await this.spouseIncomeField.waitForClickable()
@@ -136,7 +152,7 @@ class FormPage extends Page{
         }          
     }
 
-    public async submitFormWithRequiredFields(age:string, retirementAge:string, currentIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string):Promise<void>{
+    public async populateFormWithRequiredFields(age:string, retirementAge:string, currentIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string):Promise<void>{
         await this.retirementSavingCanculatorForm(age, retirementAge, currentIncome, currentTotalSavings, currentAnnualSavings, savingsIncreaseRate, option, maritalStatus)
     }
 
@@ -144,19 +160,22 @@ class FormPage extends Page{
         await this.calculateButton.click()
     }
 
+    public async clickClearFormButton ():Promise<void> {
+        await this.clearFormButton.click()
+    }
+
     public async getFinalResult():Promise<string>{
-        await this.resultMessage.waitForDisplayed({timeout: 100000})
+        await this.resultMessage.waitForDisplayed({timeout: 3000})
         return await this.resultMessage.getText()
     }
 
     public async clickDefaultValueLink():Promise<void>{
         await this.adjustDefaultValuesSection.scrollIntoView()
-        this.adjustDefaultValuesLink.waitForClickable({timeout:70000});
+        this.adjustDefaultValuesLink.waitForClickable({timeout:3000});
         await this.adjustDefaultValuesLink.click()
     }
 
-    public async updateDefaultCalculatorValues(otherIncome:number, duration:number, option:string, expectedRate:number, retirementIncome:number, preRoi:number, postRoi:number ):Promise<void>{
-        
+    public async updateDefaultCalculatorValues(otherIncome:number, duration:number, option:string, expectedRate:number, retirementIncome:number, preRoi:number, postRoi:number ):Promise<void>{        
         await this.clickDefaultValueLink()
         await this.otherIncomeField.waitForClickable({timeout:30000})
         await this.otherIncomeField.clearValue()
@@ -210,5 +229,46 @@ class FormPage extends Page{
         return await this.postRetirementRoiField.getValue()
     }
 
+    public async getInvalidFieldErrorMessage():Promise<string>{
+        await this.fieldInvalidErrorMessage.waitForDisplayed()
+        return await this.fieldInvalidErrorMessage.getText()
+    }
+
+    public async getMainErrorMessage():Promise<string>{
+        await this.mainErrorMessage.waitForDisplayed()
+        return await this.mainErrorMessage.getText()
+    }
+
+    public async isMaritalStatusFieldDisplayed():Promise<boolean>{
+        return await this.maritalStatusLabel.isDisplayed()
+    }   
+
+    public async isSocialSecurityFieldDisplayed():Promise<boolean>{
+        return await this.socialSecurityAmounField.isDisplayed()
+    } 
+
+    public async getCurrentAge():Promise<string>{
+        return await this.ageField.getValue()
+    }
+
+    public async getRetirementAge():Promise<string>{
+        return await this.retirementAgeField.getValue()
+    }
+
+    public async getCurrentIncome():Promise<string>{
+        return await this.currentIncomeField.getValue()
+    }
+
+    public async getCurrentTotalSavings():Promise<string>{
+        return await this.currentTotalSavingsField.getValue()
+    }
+
+    public async getCurrentAnnualSavings():Promise<string>{
+        return await this.currentAnnualSavingsField.getValue()
+    }
+
+    public async getSavingsIncreaseRate():Promise<string>{
+        return await this.savingsIncreaseRateField.getValue()
+    }
 }
 export default new FormPage()

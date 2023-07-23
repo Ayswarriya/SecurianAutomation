@@ -1,14 +1,36 @@
 {
-  "age": "40",
-  "retirementAge": "68",
-  "currentIncome": 100000,
-  "spouseIncome" : 75000,
-  "currentTotalSavings": 500000,
-  "currentAnnualSavings": 10,
-  "savingsIncreaseRate": 2,
-  "socialSecurityBenefit": "Yes",
-  "maritalStatus": "Married",
-  "ssAmount" : 4000,
+  "valid": {
+    "age": "55",
+    "retirementAge": "68",
+    "currentIncome": 100000,
+    "spouseIncome" : 75000,
+    "currentTotalSavings": 500000,
+    "currentAnnualSavings": 10,
+    "savingsIncreaseRate": 2,
+    "socialSecurityBenefit": "Yes",
+    "maritalStatus": "Married",
+    "ssAmount" : 4000
+  },
+
+  "invalid":{
+    "age" : "121",
+    "retirementAge": "121",
+    "age2" : "70",
+    "currentIncome": 1000000001,
+    "spouseIncome" : 1000000001,
+    "currentTotalSavings": 1000000001,
+    "ssAmount" : 1000000001
+
+  },
+
+  "errorMessages" :{
+    "fieldError": "Input required",
+    "mainError": "Please fill out all required fields",
+    "fieldValidationMessage": "Age cannot be greater than 120",
+    "fieldValidationMessage2": "Planned retirement age must be greater than current age",
+    "fieldValidationMessage3" : "Age cannot be 0"
+  },
+  
   "otherIncome" : 500,
   "duration" : 20,
   "inflationOption" : "No",
