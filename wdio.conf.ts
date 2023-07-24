@@ -39,7 +39,12 @@ export const config: Options.Testrunner = {
 
     framework: 'mocha',
     
-    reporters: ['spec'],
+    reporters: ['spec',
+    ['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+    }]],
 
     mochaOpts: {
         ui: 'bdd',
