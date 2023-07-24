@@ -116,7 +116,7 @@ class FormPage extends Page{
         return super.open('retirement-calculator.html');
     }
 
-    public async retirementSavingCanculatorForm(age:string, retirementAge:string, currentIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string):Promise<void>{
+    public async populateFormWithRequiredFields(age:string, retirementAge:string, currentIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string):Promise<void>{
         await this.ageField.setValue(age)
         await this.retirementAgeField.setValue(retirementAge)
         await this.currentIncomeField.waitForEnabled()
@@ -139,7 +139,7 @@ class FormPage extends Page{
     }
 
     public async populateFormWithAllFieldsFilled(age:string, retirementAge:string, currentIncome:number, spouseIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string, ssAmount:number):Promise<void>{
-        await this.retirementSavingCanculatorForm(age, retirementAge, currentIncome, currentTotalSavings, currentAnnualSavings, savingsIncreaseRate, option, maritalStatus)
+        await this.populateFormWithRequiredFields(age, retirementAge, currentIncome, currentTotalSavings, currentAnnualSavings, savingsIncreaseRate, option, maritalStatus)
         await this.spouseIncomeField.scrollIntoView()
         await this.spouseIncomeField.waitForClickable()
         await this.spouseIncomeField.click()
@@ -150,10 +150,6 @@ class FormPage extends Page{
             await this.socialSecurityAmounField.click()
             await this.socialSecurityAmounField.setValue(ssAmount)
         }          
-    }
-
-    public async populateFormWithRequiredFields(age:string, retirementAge:string, currentIncome:number, currentTotalSavings:number, currentAnnualSavings:number, savingsIncreaseRate:number, option:string, maritalStatus:string):Promise<void>{
-        await this.retirementSavingCanculatorForm(age, retirementAge, currentIncome, currentTotalSavings, currentAnnualSavings, savingsIncreaseRate, option, maritalStatus)
     }
 
     public async clickCalculateButton ():Promise<void> {

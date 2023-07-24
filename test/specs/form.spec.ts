@@ -8,6 +8,7 @@ describe('Retirement Savings Calculator Form', async () => {
 
         it('Validating that the user is able to submit all fields in the Pre-Retirement Calculator form', async () => {
 
+                //Populating the Pre-Retirement Calculator with all the fields
                 await FormPage.populateFormWithAllFieldsFilled(data.valid.age, data.valid.retirementAge, data.valid.currentIncome, data.valid.spouseIncome, data.valid.currentTotalSavings, data.valid.currentAnnualSavings, data.valid.savingsIncreaseRate, data.valid.socialSecurityBenefit, data.valid.maritalStatus, data.valid.ssAmount)
                 await FormPage.clickCalculateButton()
 
@@ -23,6 +24,7 @@ describe('Retirement Savings Calculator Form', async () => {
 
         it('Validating that the user is able to submit only the mandatory fields in the Pre-Retirement Calculator form', async () => {
 
+                //Populating the Pre-Retirement Calculator only with Mandatory fields
                 await FormPage.populateFormWithRequiredFields(data.valid.age, data.valid.retirementAge, data.valid.currentIncome, data.valid.currentTotalSavings, data.valid.currentAnnualSavings, data.valid.savingsIncreaseRate, data.valid.socialSecurityBenefit, data.valid.maritalStatus)
                 await FormPage.clickCalculateButton()
 
